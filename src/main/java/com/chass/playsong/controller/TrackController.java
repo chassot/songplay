@@ -31,18 +31,18 @@ public class TrackController {
 	public ResponseEntity<List<Track>> fetchAllTracks() {
 		List<Track> tracks = trackRepository.findAllTracks();
 		if (tracks.isEmpty()) {
-			return new ResponseEntity<List<Track>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<Track>>(tracks, HttpStatus.OK);
+		return new ResponseEntity<>(tracks, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/track/{trackname}")
 	public ResponseEntity<List<Track>> fetchTrackByName(@PathVariable("trackname") String trackname) {
 		List<Track> tracks = trackRepository.findByName(trackname);
 		if (tracks.isEmpty()) {
-			return new ResponseEntity<List<Track>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<Track>>(tracks, HttpStatus.OK);
+		return new ResponseEntity<>(tracks, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/track/")
@@ -52,7 +52,7 @@ public class TrackController {
 		// Updates the Grid.
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/track/{id}").buildAndExpand(track.getId()).toUri());
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/track/{id}")
@@ -60,14 +60,14 @@ public class TrackController {
 
 		Track currentTrack = trackRepository.findById(id);
 		if (currentTrack == null) {
-			return new ResponseEntity<Track>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
 		currentTrack.setTrackname(track.getTrackname());
 		currentTrack.setAlbum(track.getAlbum());
 
 		trackRepository.updateTrack(currentTrack);
-		return new ResponseEntity<Track>(currentTrack, HttpStatus.OK);
+		return new ResponseEntity<>(currentTrack, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/track/{id}")
@@ -75,10 +75,10 @@ public class TrackController {
 
 		Track track = trackRepository.findById(id);
 		if (track == null) {
-			return new ResponseEntity<Track>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
 		trackRepository.deleteTrackById(id);
-		return new ResponseEntity<Track>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }

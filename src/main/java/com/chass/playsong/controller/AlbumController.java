@@ -31,18 +31,18 @@ public class AlbumController {
 	public ResponseEntity<List<Album>> fetchAllAlbums() {
 		List<Album> albums = albumRepository.findAllAlbums();
 		if (albums.isEmpty()) {
-			return new ResponseEntity<List<Album>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<Album>>(albums, HttpStatus.OK);
+		return new ResponseEntity<>(albums, HttpStatus.OK);
 	}
 
 	@GetMapping(value = "/album/{albumname}")
 	public ResponseEntity<List<Album>> fetchAlbumByName(@PathVariable("albumname") String albumname) {
 		List<Album> albums = albumRepository.findByName(albumname);
 		if (albums.isEmpty()) {
-			return new ResponseEntity<List<Album>>(HttpStatus.NO_CONTENT);
+			return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 		}
-		return new ResponseEntity<List<Album>>(albums, HttpStatus.OK);
+		return new ResponseEntity<>(albums, HttpStatus.OK);
 	}
 
 	@PostMapping(value = "/album/")
@@ -51,7 +51,7 @@ public class AlbumController {
 
 		HttpHeaders headers = new HttpHeaders();
 		headers.setLocation(ucBuilder.path("/album/{id}").buildAndExpand(album.getId()).toUri());
-		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
+		return new ResponseEntity<>(headers, HttpStatus.CREATED);
 	}
 
 	@PutMapping(value = "/album/{id}")
@@ -59,7 +59,7 @@ public class AlbumController {
 
 		Album currentAlbum = albumRepository.findById(id);
 		if (currentAlbum == null) {
-			return new ResponseEntity<Album>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 
 		currentAlbum.setName(album.getName());
@@ -67,16 +67,16 @@ public class AlbumController {
 		currentAlbum.setYear(album.getYear());
 		albumRepository.updateAlbum(currentAlbum);
 
-		return new ResponseEntity<Album>(currentAlbum, HttpStatus.OK);
+		return new ResponseEntity<>(currentAlbum, HttpStatus.OK);
 	}
 
 	@DeleteMapping(value = "/album/{id}")
 	public ResponseEntity<Album> deleteAlbum(@PathVariable("id") long id) {
 		Album album = albumRepository.findById(id);
 		if (album == null) {
-			return new ResponseEntity<Album>(HttpStatus.NOT_FOUND);
+			return new ResponseEntity<>(HttpStatus.NOT_FOUND);
 		}
 		albumRepository.deleteAlbumById(id);
-		return new ResponseEntity<Album>(HttpStatus.NO_CONTENT);
+		return new ResponseEntity<>(HttpStatus.NO_CONTENT);
 	}
 }
