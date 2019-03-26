@@ -9,10 +9,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.util.UriComponentsBuilder;
 
 import com.chass.playsong.domain.Album;
@@ -30,7 +27,7 @@ public class AlbumController {
 	@Resource(name = "albumRepositoryJpa")
 	private AlbumRepository albumRepository;
 
-	@RequestMapping(value = "/album/", method = RequestMethod.GET)
+	@GetMapping(value = "/album/")
 	public ResponseEntity<List<Album>> fetchAllAlbums() {
 		List<Album> albums = albumRepository.findAllAlbums();
 		if (albums.isEmpty()) {
@@ -39,7 +36,7 @@ public class AlbumController {
 		return new ResponseEntity<List<Album>>(albums, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/album/{albumname}", method = RequestMethod.GET)
+	@GetMapping(value = "/album/{albumname}")
 	public ResponseEntity<List<Album>> fetchAlbumByName(@PathVariable("albumname") String albumname) {
 		List<Album> albums = albumRepository.findByName(albumname);
 		if (albums.isEmpty()) {
@@ -48,7 +45,7 @@ public class AlbumController {
 		return new ResponseEntity<List<Album>>(albums, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/album/", method = RequestMethod.POST)
+	@PostMapping(value = "/album/")
 	public ResponseEntity<Void> createAlbum(@RequestBody Album album, UriComponentsBuilder ucBuilder) {
 		albumRepository.saveAlbum(album);
 
@@ -57,7 +54,7 @@ public class AlbumController {
 		return new ResponseEntity<Void>(headers, HttpStatus.CREATED);
 	}
 
-	@RequestMapping(value = "/album/{id}", method = RequestMethod.PUT)
+	@PutMapping(value = "/album/{id}")
 	public ResponseEntity<Album> updateAlbum(@PathVariable("id") Long id, @RequestBody Album album) {
 
 		Album currentAlbum = albumRepository.findById(id);
@@ -73,7 +70,7 @@ public class AlbumController {
 		return new ResponseEntity<Album>(currentAlbum, HttpStatus.OK);
 	}
 
-	@RequestMapping(value = "/album/{id}", method = RequestMethod.DELETE)
+	@DeleteMapping(value = "/album/{id}")
 	public ResponseEntity<Album> deleteAlbum(@PathVariable("id") long id) {
 		Album album = albumRepository.findById(id);
 		if (album == null) {

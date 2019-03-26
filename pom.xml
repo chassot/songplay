@@ -78,6 +78,11 @@
             <groupId>org.springframework</groupId>
             <artifactId>spring-jdbc</artifactId>
         </dependency>
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<version>1.16.16</version>
+		</dependency>
 	</dependencies>
 
 	<!-- Configure web files(angular, jquery, css, etc...) to be managed by spring boot -->

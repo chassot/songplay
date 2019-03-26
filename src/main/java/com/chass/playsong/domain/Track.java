@@ -1,5 +1,9 @@
 package com.chass.playsong.domain;
 
+import lombok.AllArgsConstructor;
+import lombok.Data;
+import lombok.NoArgsConstructor;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -14,6 +18,9 @@ import javax.persistence.ManyToOne;
  * 
  */
 @Entity
+@Data
+@NoArgsConstructor
+@AllArgsConstructor
 public class Track {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,40 +31,4 @@ public class Track {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "ALBUM_ID")
 	private Album album;
-
-	public Track() {
-		super();
-	}
-
-	public Track(Long id, String trackname, Album album) {
-		super();
-		this.id = id;
-		this.trackname = trackname;
-		this.album = album;
-	}
-
-	public Long getId() {
-		return id;
-	}
-
-	public void setId(Long id) {
-		this.id = id;
-	}
-
-	public String getTrackname() {
-		return trackname;
-	}
-
-	public void setTrackname(String trackname) {
-		this.trackname = trackname;
-	}
-
-	public Album getAlbum() {
-		return album;
-	}
-
-	public void setAlbum(Album album) {
-		this.album = album;
-	}
-
 }
