@@ -1,2 +1,2 @@
 # songplay
-Manage albuns and tracks.
+Sample in Spring + Angular 1.3.
